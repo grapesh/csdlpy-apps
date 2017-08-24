@@ -75,6 +75,8 @@ def bias_map (csvFile, outputPath, toolkitPath, avgDays):
     x,y,z = coops.read_bias_table (csvFile)
     plotter.plotMap (x,y,fig_w=16.0,lonlim=(-180, 180),latlim=(-15,75))
     plotter.addTriangles((x,y,z))
+    plotter.save    ( os.path.join(outputPath, \
+                         'map-biases-' + str(avgDays).zfill(3) +'days.png') )
 
 #==============================================================================
 if __name__ == "__main__":
