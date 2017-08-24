@@ -7,6 +7,10 @@ import argparse
 import matplotlib
 matplotlib.use('Agg',warn=False)
 import matplotlib.pyplot as plt
+from datetime import datetime as dt
+from datetime import timedelta as td
+import numpy as np
+import copy
 
 #==============================================================================
 def run_event (argv):
@@ -77,6 +81,7 @@ def event_maxele (params, outputPath, toolkitPath):
     from csdlpy import transfer
     from csdlpy import plotter
     from csdlpy import atcf
+    from csdlpy.obs import coops
     
     latest = estofs.latestForecast ()
     
@@ -100,31 +105,75 @@ def event_maxele (params, outputPath, toolkitPath):
     trk = atcf.readTrack(trkFile)
     adv = atcf.readTrack(advFile)
     
-    plotter.plotMap    (params['lonlim'], params['latlim'])   
+    plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)   
     plotter.addSurface (grid, maxele['value'],clim=params['clim'])
     plt.plot(trk['lon'], trk['lat'],'o-k',markersize=2,zorder=10)    
     plt.plot(adv['lon'], adv['lat'],'o-r',markersize=2,zorder=11)    
     
-    ncFile = params['prodPath'] + params['domain'] + '.' + \
+    cwlFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.points.cwl.nc'
-    #ncFile = "C:/Users/sergey.vinogradov/Downloads/estofs.atl.t12z.points.cwl.nc"
-    print '[info]: reading ', ncFile
-           
-    points = estofs.getPointsWaterlevel (ncFile)
-    
-    for n in range(len(points['lon'])):
-        if params['xlim'][0] <= points['lon'][n] and \
-           points['lon'][n] <= params['xlim'][1] and \
-           params['ylim'][0] <= points['lat'][n] and \
-           points['lat'][n] <= params['ylim'][1]:
-               plt.plot(points['lon'][n], points['lat'][n],'wo', \
+    htpFile = params['prodPath'] + params['domain'] + '.' + \
+                       latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
+                       latest['tHHz'] + '.points.htp.nc'
+                       
+#    cwlFile = "C:/Users/sergey.vinogradov/Downloads/estofs.atl.t12z.points.cwl.nc"
+#    htpFile = "C:/Users/sergey.vinogradov/Downloads/estofs.atl.t12z.points.cwl.nc"
+               
+    cwl = estofs.getPointsWaterlevel (cwlFile)
+    htp = estofs.getPointsWaterlevel (htpFile)
+    mod_dates = cwl['time']
+    htp_dates = htp['time']
+
+    for n in range(len(cwl['lon'])):
+        if params['xlim'][0] <= cwl['lon'][n] and \
+           cwl['lon'][n] <= params['xlim'][1] and \
+           params['ylim'][0] <= cwl['lat'][n] and \
+           cwl['lat'][n] <= params['ylim'][1]:
+               plt.plot(cwl['lon'][n], cwl['lat'][n],'wo', \
                         markeredgecolor='k', zorder=15)
-    title = 'ESTOFS-ATL HSOFS/GFS ' + latest['yyyymmdd'] + '.' + latest['tHHz']
-#    plt.text (params['lonlim'][0]+0.01, \
-#              params['latlim'][0]+0.01, \
-#              title )    
+    title = 'ESTOFS-ATL (HSOFS+GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
+    plt.text (params['lonlim'][0]+0.02, \
+              params['latlim'][0]+0.02, \
+              title )    
     plotter.save(title, outputPath + '/maxele.png')        
+
+    utcnow = dt.utcnow()
+    daterange = (utcnow-td(days=1), utcnow)
+        
+    figureCounter = 0
+    for n in range(len(cwl['lon'])):
+        
+        if params['xlim'][0] <= cwl['lon'][n] and \
+           cwl['lon'][n] <= params['xlim'][1] and \
+           params['ylim'][0] <= cwl['lat'][n] and \
+           cwl['lat'][n] <= params['ylim'][1]:
+               
+               mod_vals = np.squeeze( cwl['zeta'][:,n] )
+               htp_vals = np.squeeze( htp['zeta'][:,n] )
+    
+               obs_vals = copy.deepcopy(mod_vals) #in case there is no obs
+               obs_dates = copy.deepcopy(mod_dates) # in case if there is no obs
+               
+               coops_id = cwl['stations'][n].split()[2]
+               print coops_id
+               obs_coops = coops.getData ( coops_id, daterange)
+               if len(obs_coops['values'])>0:
+                   obs_dates = obs_coops['dates']
+                   obs_vals  = obs_coops['values']
+                                        
+               f = plt.figure()               
+               figureCounter += 1
+               plotter.plot_estofs_timeseries(obs_dates, obs_vals, \
+                                              mod_dates, mod_vals, \
+                                              figFile=outputPath + '/ts-' + \
+                                              str(figureCounter).zfill(3) + '.png', \
+                                              stationName=cwl['stations'][n], \
+                                              htp_dates=htp_dates, htp_vals=htp_vals, \
+                                              daterange = daterange, \
+                                              ylim = (-1.5,params['clim'][1]))
+               plt.close(f)
+    
 
 #==============================================================================
 if __name__ == "__main__":
