@@ -7,6 +7,9 @@ from datetime import datetime as dt
 import shutil
 from datetime import timedelta
 import argparse
+import matplotlib
+matplotlib.use('Agg',warn=False)
+import matplotlib.pyplot as plt
 
 ##==============================================================================
 def run_bias_table (argv):
@@ -75,6 +78,7 @@ def bias_map (csvFile, outputPath, toolkitPath, avgDays):
     x,y,z,span = coops.read_bias_table (csvFile)
     plotter.plotMap (x,y,fig_w=16.0,lonlim=(-180, 180),latlim=(-15,75))
     plotter.addTriangles((x,y,z))
+    plt.text(50, -10, 'meters MSL, ' + span)
     plotter.save    ('meters MSL, ' + span, os.path.join(outputPath, \
                      'map-biases-' + str(avgDays).zfill(3) +'days.png') )
 
