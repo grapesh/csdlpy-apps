@@ -72,7 +72,7 @@ def bias_map (csvFile, outputPath, toolkitPath, avgDays):
     from csdlpy.obs import coops
     from csdlpy import plotter
     
- x,y,z,span = coops.read_bias_table (csvFile)
+    x,y,z,span = coops.read_bias_table (csvFile)
     plotter.plotMap (x,y,fig_w=16.0,lonlim=(-180, 180),latlim=(-15,75))
     plotter.addTriangles((x,y,z))
     plotter.save    ( span, os.path.join(outputPath, \
