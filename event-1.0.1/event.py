@@ -121,10 +121,9 @@ def event_maxele (params, outputPath, toolkitPath):
                plt.plot(points['lon'][n], points['lat'][n],'wo', \
                         markeredgecolor='k', zorder=15)
     title = 'ESTOFS-ATL HSOFS/GFS ' + latest['yyyymmdd'] + '.' + latest['tHHz']
-    plt.text (params['lonlim'][0]+0.01, \
-              params['latlim'][0]+0.01, \
-              title )
-    
+#    plt.text (params['lonlim'][0]+0.01, \
+#              params['latlim'][0]+0.01, \
+#              title )    
     plotter.save(title, outputPath + '/maxele.png')        
 
 #==============================================================================
