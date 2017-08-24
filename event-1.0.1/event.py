@@ -106,7 +106,9 @@ def event_maxele (params, outputPath, toolkitPath):
     ncFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.points.cwl.nc'
-    points = estofs.getPointsWaterLevel (ncFile)
+    
+    points = estofs.getPointsWaterlevel (ncFile)
+    
     for n in range(len(points['lon'])):
         if params['xlim'][0] <= points['lon'][n] and \
            points['lon'][n] <= params['xlim'][1] and \
