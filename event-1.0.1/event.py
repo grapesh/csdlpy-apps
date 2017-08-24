@@ -83,7 +83,9 @@ def event_maxele (params, outputPath, toolkitPath):
     maxeleFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.fields.cwl.maxele.nc'
-                             
+    
+    #maxeleFile = "C:\Users\sergey.vinogradov\Python\maxele.63.nc"
+                          
     maxele = estofs.getFieldsWaterlevel (maxeleFile, 'zeta_max')    
     
     gridFile = 'fort.14'
@@ -106,7 +108,9 @@ def event_maxele (params, outputPath, toolkitPath):
     ncFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.points.cwl.nc'
-    
+    #ncFile = "C:/Users/sergey.vinogradov/Downloads/estofs.atl.t12z.points.cwl.nc"
+    print '[info]: reading ', ncFile
+           
     points = estofs.getPointsWaterlevel (ncFile)
     
     for n in range(len(points['lon'])):
@@ -114,8 +118,8 @@ def event_maxele (params, outputPath, toolkitPath):
            points['lon'][n] <= params['xlim'][1] and \
            params['ylim'][0] <= points['lat'][n] and \
            points['lat'][n] <= params['ylim'][1]:
-               plt.plot(points['lon'][n], points['lat'][n],'wo',\
-                        edgecolors='k', zorder=15)
+               plt.plot(points['lon'][n], points['lat'][n],'wo', \
+                        markeredgecolor='k', zorder=15)
 
     plt.text (params['xlim'][0]+0.1, \
               params['ylim'][0]+0.1, \
