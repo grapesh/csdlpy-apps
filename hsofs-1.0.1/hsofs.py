@@ -132,78 +132,112 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     plt.close(f)
    
     # nhctrk
-    maxPSfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.nhctrk.fields.maxele.nc'
-    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
-
-    # Plot maxeles maxPS
-    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
+    ens = 'nhctrk'
+    ncfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + ens + '.fields.maxele.nc'
+    trkFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.surfaceforcing' 
+    pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.points.waterlevel.nc'
     
-    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
-    plt.plot(adv['lon'], adv['lat'],'o--r',markersize=1,zorder=11)    
-        
-    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.nhctrk'
+    maxele = estofs.getFieldsWaterlevel (ncfile, 'zeta_max')    
+    track_nhctrk  = atcf.readTrack(trkFile)
+    points_nhctrk = estofs.getPointsWaterlevel (pointsFile )
+
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_nhctrk['lon'], track_nhctrk['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
     plt.text (params['lonlim'][0]+0.03, \
               params['latlim'][0]+0.03, \
                   title )    
-    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.nhctrk.maxele.png')
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
+    
+    # 2
+    ens = 'slowerSpeed'
+    ncfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + ens + '.fields.maxele.nc'
+    trkFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.surfaceforcing' 
+    pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.points.waterlevel.nc'
+    
+    maxele = estofs.getFieldsWaterlevel (ncfile, 'zeta_max')    
+    track_slowerSpeed  = atcf.readTrack(trkFile)
+    points_slowerSpeed = estofs.getPointsWaterlevel (pointsFile )
+
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_slowerSpeed['lon'], track_slowerSpeed['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
+    
+    # 3
+    ens = 'shiftRight'
+    ncfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + ens + '.fields.maxele.nc'
+    trkFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.surfaceforcing' 
+    pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.points.waterlevel.nc'
+    
+    maxele = estofs.getFieldsWaterlevel (ncfile, 'zeta_max')    
+    track_shiftRight  = atcf.readTrack(trkFile)
+    points_shiftRight = estofs.getPointsWaterlevel (pointsFile )
+
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_shiftRight['lon'], track_shiftRight['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
     plt.close(f)
 
+    # 4
+    ens = 'shiftLeft'
+    ncfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + ens + '.fields.maxele.nc'
+    trkFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.surfaceforcing' 
+    pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.points.waterlevel.nc'
+    
+    maxele = estofs.getFieldsWaterlevel (ncfile, 'zeta_max')    
+    track_shiftLeft  = atcf.readTrack(trkFile)
+    points_shiftLeft = estofs.getPointsWaterlevel (pointsFile )
 
-    ens = "nhctrk", "higherSpeed", "lowerSpeed","shiftLeft","shiftRight "
-    ens_col = "k", "r","b","c","m"
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_shiftLeft['lon'], track_shiftLeft['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
     
-    fcst = dict()
-    counter = 0
-    for member in ens:
-        print '[info]: working on ' + member
-        trackFile  = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.surfaceforcing' 
-        maxeleFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.fields.maxele.nc'
-        pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.points.waterlevel.nc'
-        
-        #fcst['ens'][counter] = member
-        fcst['track'][counter]  = atcf.readTrack(trackFile)
-        fcst['maxele'][counter] = estofs.getFieldsWaterlevel (maxeleFile, 'zeta_max')
-        fcst['points'][counter] = estofs.getPointsWaterlevel (pointsFile )            
-        counter += 1
+    # 5
+    ens = 'higherSpeed'
+    ncfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + ens + '.fields.maxele.nc'
+    trkFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.surfaceforcing' 
+    pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.points.waterlevel.nc'
     
-    
-    cwl = fcst['points'][0] # nhctrk stations
-    
+    maxele = estofs.getFieldsWaterlevel (ncfile, 'zeta_max')    
+    track_higherSpeed  = atcf.readTrack(trkFile)
+    points_higherSpeed = estofs.getPointsWaterlevel (pointsFile )
+
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_higherSpeed['lon'], track_higherSpeed['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
+
+    cwl = points_nhctrk # nhctrk stations
     mod_dates = cwl['time'] 
-    #          
-    #
-
-    #          
-    # Plot ens maxeles
-    counter = 0
-    for member in ens:
-        
-        f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-        plotter.addSurface (grid, fcst['maxele'][counter]['value'],clim=params['clim'])
-        
-        plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
-        plt.plot(adv['lon'], adv['lat'],'o--r',markersize=1,zorder=11)    
-        plt.plot(fcst['track'][counter]['lon'], fcst['track'][counter]['lat'],'o-k',markersize=2,zorder=12)
-        
-        counter += 1
-        
-        # Add stations locations:                      
-        for n in range(len(cwl['lon'])):
-            if params['xlim'][0] <= cwl['lon'][n] and \
-                     cwl['lon'][n] <= params['xlim'][1] and \
-                     params['ylim'][0] <= cwl['lat'][n] and \
-                     cwl['lat'][n] <= params['ylim'][1]:
-                         
-               plt.plot(cwl['lon'][n], cwl['lat'][n],'wo', \
-                        markeredgecolor='k', zorder=15)
-        title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + member
-        plt.text (params['lonlim'][0]+0.03, \
-                  params['latlim'][0]+0.03, \
-                        title )    
-        plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.' + member + '.maxele.png')
-        plt.close(f)
-    #
     
     # Plot time series
     utcnow = dt.utcnow()
