@@ -226,7 +226,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                plt.ylabel('WL, meters LMSL')
                plt.legend(bbox_to_anchor=(0.9, 0.35))
 
-               figFile=outputPath + '/ts-' + str(figureCounter).zfill(3) + '.png'
+               figFile=outputPath + '/' + stormID + '.' + inputCycle + '.ts-' + str(figureCounter).zfill(3) + '.png'
                plt.savefig(figFile)
                plt.close(f)
                figureCounter += 1
