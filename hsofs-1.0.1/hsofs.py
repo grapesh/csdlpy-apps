@@ -260,7 +260,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                obs_vals = copy.deepcopy(mod_vals) #in case there is no obs
                obs_dates = copy.deepcopy(mod_dates) # in case if there is no obs
                
-               coops_id = cwl['stations'][n].split()[2]
+               coops_id = cwl['stations'][n].split()[0] #[2]
                print coops_id
                obs_coops = coops.getData ( coops_id, daterange)
                if len(obs_coops['values'])>0:
