@@ -266,7 +266,8 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                obs_vals = copy.deepcopy(mod_vals) #in case there is no obs
                obs_dates = copy.deepcopy(mod_dates) # in case if there is no obs
                
-               coops_id = cwl['stations'][n].split()[0] #[2]
+               stID =  cwl['stations'][1].split()[0]
+               coops_id = stID #[2]
                print coops_id
                obs_coops = coops.getData ( coops_id, daterange)
                if len(obs_coops['values'])>0:
@@ -279,13 +280,14 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                
                # Plot model
                plt.plot(points_nhctrk['time'],      points_nhctrk['zeta'][:,n],     '.', c='k',label='nhctrk')
-               plt.plot(points_higherSpeed['time'], points_higherSpeed['zeta'][:,n],'.', c='r',label='higherSpeed')
-               plt.plot(points_lowerSpeed['time'],  points_lowerSpeed['zeta'][:,n], '.', c='m',label='lowerSpeed')
-               plt.plot(points_shiftRight['time'],  points_shiftRight['zeta'][:,n], '.', c='b',label='shiftRight')
-               plt.plot(points_shiftLeft['time'],   points_shiftLeft['zeta'][:,n],  '.', c='b',label='shiftLeft')
+               plt.plot(points_higherSpeed['time'], points_higherSpeed['zeta'][:,n],'.', c='r',label='higherSpeed',lw=1)
+               plt.plot(points_lowerSpeed['time'],  points_lowerSpeed['zeta'][:,n], '.', c='m',label='lowerSpeed',lw=1)
+               plt.plot(points_shiftRight['time'],  points_shiftRight['zeta'][:,n], '.', c='b',label='shiftRight',lw=1)
+               plt.plot(points_shiftLeft['time'],   points_shiftLeft['zeta'][:,n],  '.', c='b',label='shiftLeft',lw=1)
                    
                plt.ylim([-1.5,params['clim'][1]])
-               plt.title(cwl['stations'][n])
+               stationName = coops.getStationInfo (stID)
+               plt.title(stationName)
                plt.xlim([daterange[0],mod_dates[-1]])
                plt.grid()
                plt.xlabel('DATE UTC')
