@@ -278,11 +278,11 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                plt.plot(obs_dates, obs_vals, '.',color='g',label='OBS')
                
                # Plot model
-               plt.plot(mod_dates, points_nhctrk['zeta'][:,n],     '.', c='k',label='nhctrk')
-               plt.plot(mod_dates, points_higherSpeed['zeta'][:,n],'.', c='r',label='higherSpeed')
-               plt.plot(mod_dates, points_lowerSpeed['zeta'][:,n], '.', c='m',label='lowerSpeed')
-               plt.plot(mod_dates, points_shiftRight['zeta'][:,n], '.', c='b',label='shiftRight')
-               plt.plot(mod_dates, points_shiftLeft['zeta'][:,n],  '.', c='b',label='shiftLeft')
+               plt.plot(points_nhctrk['time'],      points_nhctrk['zeta'][:,n],     '.', c='k',label='nhctrk')
+               plt.plot(points_higherSpeed['time'], points_higherSpeed['zeta'][:,n],'.', c='r',label='higherSpeed')
+               plt.plot(points_lowerSpeed['time'],  points_lowerSpeed['zeta'][:,n], '.', c='m',label='lowerSpeed')
+               plt.plot(points_shiftRight['time'],  points_shiftRight['zeta'][:,n], '.', c='b',label='shiftRight')
+               plt.plot(points_shiftLeft['time'],   points_shiftLeft['zeta'][:,n],  '.', c='b',label='shiftLeft')
                    
                plt.ylim([-1.5,params['clim'][1]])
                plt.title(cwl['stations'][n])
