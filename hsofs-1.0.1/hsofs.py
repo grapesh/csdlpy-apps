@@ -159,13 +159,13 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.points.waterlevel.nc'
     
     maxele = estofs.getFieldsWaterlevel (ncfile, 'zeta_max')    
-    track_slowerSpeed  = atcf.readTrack(trkFile)
-    points_slowerSpeed = estofs.getPointsWaterlevel (pointsFile )
+    track_lowerSpeed  = atcf.readTrack(trkFile)
+    points_lowerSpeed = estofs.getPointsWaterlevel (pointsFile )
 
     # Plot maxeles maxele_nhctrk
     f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
     plotter.addSurface (grid, maxele['value'],clim=params['clim'])
-    plt.plot(track_slowerSpeed['lon'], track_slowerSpeed['lat'],'o-k',markersize=1,zorder=10)    
+    plt.plot(track_lowerSpeed['lon'], track_lowerSpeed['lat'],'o-k',markersize=1,zorder=10)    
     title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
     plt.text (params['lonlim'][0]+0.03, \
               params['latlim'][0]+0.03, \
@@ -268,11 +268,11 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                plt.plot(obs_dates, obs_vals, '.',color='g',label='OBS')
                
                # Plot model
-               counter = 0
-               for member in ens:
-                   mod_vals = fcst['points'][counter]['zeta'][:,n]
-                   plt.plot(mod_dates, mod_vals, '.', color=ens_col[counter],label=member)
-                   counter += 1 
+               plt.plot(mod_dates, points_nhctrk['zeta'][:,n], '.', 'k',label='nhctrk')
+               plt.plot(mod_dates, points_higherSpeed['zeta'][:,n], '.', 'r',label='higherSpeed')
+               plt.plot(mod_dates, points_lowerSpeed['zeta'][:,n], '.', 'm',label='higherSpeed')
+               plt.plot(mod_dates, points_shiftRight['zeta'][:,n], '.', 'b',label='shiftRight')
+               plt.plot(mod_dates, points_shiftLeft['zeta'][:,n], '.', 'b',label='shiftLeft')
                    
                plt.ylim([-1.5,params['clim'][1]])
                plt.title(cwl['stations'][n])
