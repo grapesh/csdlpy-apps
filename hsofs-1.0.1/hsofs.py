@@ -115,7 +115,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
         maxeleFile = 'inputPath' + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.fields.maxele.nc'
         pointsFile = 'inputPath' + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.points.waterlevel.nc'
         
-        fcst['ens'][counter] = member
+        #fcst['ens'][counter] = member
         fcst['track'][counter]  = atcf.readTrack(trackFile)
         fcst['maxele'][counter] = estofs.getFieldsWaterlevel (maxeleFile, 'zeta_max')
         fcst['points'][counter] = estofs.getPointsWaterlevel (pointsFile )            
