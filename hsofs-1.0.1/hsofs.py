@@ -283,7 +283,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                plt.plot(points_higherSpeed['time'], points_higherSpeed['zeta'][:,n],'.', c='r',label='higherSpeed',lw=1)
                plt.plot(points_lowerSpeed['time'],  points_lowerSpeed['zeta'][:,n], '.', c='m',label='lowerSpeed',lw=1)
                plt.plot(points_shiftRight['time'],  points_shiftRight['zeta'][:,n], '.', c='b',label='shiftRight',lw=1)
-               plt.plot(points_shiftLeft['time'],   points_shiftLeft['zeta'][:,n],  '.', c='b',label='shiftLeft',lw=1)
+               plt.plot(points_shiftLeft['time'],   points_shiftLeft['zeta'][:,n],  '.', c='c',label='shiftLeft',lw=1)
                    
                plt.ylim([-1.5,params['clim'][1]])
                stationName = coops.getStationInfo (stID)
