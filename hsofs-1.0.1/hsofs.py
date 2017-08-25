@@ -112,25 +112,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     grid = adcirc.readGrid (gridFile)
     trk = atcf.readTrack(trkFile)
     adv = atcf.readTrack(advFile)
-
-    # MaxPS
-    maxPSfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.fields.maxPS.nc'
-    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
-
-    # Plot maxeles maxPS
-    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
-    
-    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
-    plt.plot(adv['lon'], adv['lat'],'o--r',markersize=1,zorder=11)    
-        
-    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.maxPS'
-    plt.text (params['lonlim'][0]+0.03, \
-              params['latlim'][0]+0.03, \
-                  title )    
-    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.maxPS.maxele.png')
-    plt.close(f)
-   
+  
     # nhctrk
     ens = 'nhctrk'
     ncfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + ens + '.fields.maxele.nc'
@@ -236,6 +218,30 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
 #    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
 #    plt.close(f)
 
+#    # MaxPS
+#    maxPSfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.fields.maxPS.nc'
+#    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
+#
+#    # Plot maxeles maxPS
+#    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+#    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
+#    
+#    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
+#    plt.plot(track_nhctrk['lon'],      track_nhctrk['lat'],     'o-k',markersize=1,zorder=10)    
+#    plt.plot(track_higherSpeed['lon'], track_higherSpeed['lat'],'o-k',markersize=1,zorder=10)    
+#    plt.plot(track_lowerSpeed['lon'],  track_lowerSpeed['lat'], 'o-k',markersize=1,zorder=10)    
+#    plt.plot(track_shiftLeft['lon'],   track_shiftLeft['lat'],  'o-k',markersize=1,zorder=10)    
+#    plt.plot(track_shiftRight['lon'],  track_shiftRight['lat'], 'o-k',markersize=1,zorder=10)    
+#        
+#    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.maxPS'
+#    plt.text (params['lonlim'][0]+0.03, \
+#              params['latlim'][0]+0.03, \
+#                  title )    
+#    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.maxPS.maxele.png')
+#    plt.close(f)
+
+
+
     cwl = points_nhctrk # nhctrk stations
     mod_dates = cwl['time'] 
     
@@ -272,11 +278,11 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                plt.plot(obs_dates, obs_vals, '.',color='g',label='OBS')
                
                # Plot model
-               plt.plot(mod_dates, points_nhctrk['zeta'][:,n], '.', 'k',label='nhctrk')
-               plt.plot(mod_dates, points_higherSpeed['zeta'][:,n], '.', 'r',label='higherSpeed')
+               plt.plot(mod_dates, points_nhctrk['zeta'][:,n],     '.', 'k',label='nhctrk')
+               plt.plot(mod_dates, points_higherSpeed['zeta'][:,n],'.', 'r',label='higherSpeed')
                plt.plot(mod_dates, points_lowerSpeed['zeta'][:,n], '.', 'm',label='lowerSpeed')
                plt.plot(mod_dates, points_shiftRight['zeta'][:,n], '.', 'b',label='shiftRight')
-               plt.plot(mod_dates, points_shiftLeft['zeta'][:,n], '.', 'b',label='shiftLeft')
+               plt.plot(mod_dates, points_shiftLeft['zeta'][:,n],  '.', 'b',label='shiftLeft')
                    
                plt.ylim([-1.5,params['clim'][1]])
                plt.title(cwl['stations'][n])
