@@ -111,7 +111,6 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
 
     grid = adcirc.readGrid (gridFile)
     trk = atcf.readTrack(trkFile)
-    adv = atcf.readTrack(advFile)
   
     # nhctrk
     ens = 'nhctrk'
@@ -123,16 +122,16 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     track_nhctrk  = atcf.readTrack(trkFile)
     points_nhctrk = estofs.getPointsWaterlevel (pointsFile )
 
-#    # Plot maxeles maxele_nhctrk
-#    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-#    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
-#    plt.plot(track_nhctrk['lon'], track_nhctrk['lat'],'o-k',markersize=1,zorder=10)    
-#    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
-#    plt.text (params['lonlim'][0]+0.03, \
-#              params['latlim'][0]+0.03, \
-#                  title )    
-#    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
-#    plt.close(f)
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_nhctrk['lon'], track_nhctrk['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
     
     # 2
     ens = 'lowerSpeed'
@@ -144,16 +143,16 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     track_lowerSpeed  = atcf.readTrack(trkFile)
     points_lowerSpeed = estofs.getPointsWaterlevel (pointsFile )
 
-#    # Plot maxeles maxele_nhctrk
-#    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-#    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
-#    plt.plot(track_lowerSpeed['lon'], track_lowerSpeed['lat'],'o-k',markersize=1,zorder=10)    
-#    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
-#    plt.text (params['lonlim'][0]+0.03, \
-#              params['latlim'][0]+0.03, \
-#                  title )    
-#    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
-#    plt.close(f)
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_lowerSpeed['lon'], track_lowerSpeed['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
     
     # 3
     ens = 'shiftRight'
@@ -165,16 +164,16 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     track_shiftRight  = atcf.readTrack(trkFile)
     points_shiftRight = estofs.getPointsWaterlevel (pointsFile )
 
-#    # Plot maxeles maxele_nhctrk
-#    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-#    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
-#    plt.plot(track_shiftRight['lon'], track_shiftRight['lat'],'o-k',markersize=1,zorder=10)    
-#    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
-#    plt.text (params['lonlim'][0]+0.03, \
-#              params['latlim'][0]+0.03, \
-#                  title )    
-#    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
-#    plt.close(f)
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_shiftRight['lon'], track_shiftRight['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
 
     # 4
     ens = 'shiftLeft'
@@ -186,16 +185,16 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     track_shiftLeft  = atcf.readTrack(trkFile)
     points_shiftLeft = estofs.getPointsWaterlevel (pointsFile )
 
-#    # Plot maxeles maxele_nhctrk
-#    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-#    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
-#    plt.plot(track_shiftLeft['lon'], track_shiftLeft['lat'],'o-k',markersize=1,zorder=10)    
-#    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
-#    plt.text (params['lonlim'][0]+0.03, \
-#              params['latlim'][0]+0.03, \
-#                  title )    
-#    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
-#    plt.close(f)
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_shiftLeft['lon'], track_shiftLeft['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
     
     # 5
     ens = 'higherSpeed'
@@ -207,38 +206,38 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     track_higherSpeed  = atcf.readTrack(trkFile)
     points_higherSpeed = estofs.getPointsWaterlevel (pointsFile )
 
-#    # Plot maxeles maxele_nhctrk
-#    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-#    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
-#    plt.plot(track_higherSpeed['lon'], track_higherSpeed['lat'],'o-k',markersize=1,zorder=10)    
-#    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
-#    plt.text (params['lonlim'][0]+0.03, \
-#              params['latlim'][0]+0.03, \
-#                  title )    
-#    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
-#    plt.close(f)
+    # Plot maxeles maxele_nhctrk
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    plt.plot(track_higherSpeed['lon'], track_higherSpeed['lat'],'o-k',markersize=1,zorder=10)    
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.' + ens
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.'+ ens + '.maxele.png')
+    plt.close(f)
 
-#    # MaxPS
-#    maxPSfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.fields.maxPS.nc'
-#    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
-#
-#    # Plot maxeles maxPS
-#    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-#    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
-#    
-#    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
-#    plt.plot(track_nhctrk['lon'],      track_nhctrk['lat'],     'o-k',markersize=1,zorder=10)    
-#    plt.plot(track_higherSpeed['lon'], track_higherSpeed['lat'],'o-k',markersize=1,zorder=10)    
-#    plt.plot(track_lowerSpeed['lon'],  track_lowerSpeed['lat'], 'o-k',markersize=1,zorder=10)    
-#    plt.plot(track_shiftLeft['lon'],   track_shiftLeft['lat'],  'o-k',markersize=1,zorder=10)    
-#    plt.plot(track_shiftRight['lon'],  track_shiftRight['lat'], 'o-k',markersize=1,zorder=10)    
-#        
-#    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.maxPS'
-#    plt.text (params['lonlim'][0]+0.03, \
-#              params['latlim'][0]+0.03, \
-#                  title )    
-#    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.maxPS.maxele.png')
-#    plt.close(f)
+    # MaxPS
+    maxPSfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.fields.maxPS.nc'
+    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
+
+    # Plot maxeles maxPS
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
+    
+    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
+    plt.plot(track_nhctrk['lon'],      track_nhctrk['lat'],     'o-k',markersize=1,zorder=10)    
+    plt.plot(track_higherSpeed['lon'], track_higherSpeed['lat'],'o-k',markersize=1,zorder=10)    
+    plt.plot(track_lowerSpeed['lon'],  track_lowerSpeed['lat'], 'o-k',markersize=1,zorder=10)    
+    plt.plot(track_shiftLeft['lon'],   track_shiftLeft['lat'],  'o-k',markersize=1,zorder=10)    
+    plt.plot(track_shiftRight['lon'],  track_shiftRight['lat'], 'o-k',markersize=1,zorder=10)    
+        
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.maxPS'
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.maxPS.maxele.png')
+    plt.close(f)
 
 
 
