@@ -131,9 +131,27 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.maxPS.maxele.png')
     plt.close(f)
    
+    # nhctrk
+    maxPSfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.nhctrk.fields.maxele.nc'
+    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
+
+    # Plot maxeles maxPS
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
+    
+    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
+    plt.plot(adv['lon'], adv['lat'],'o--r',markersize=1,zorder=11)    
+        
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.nhctrk'
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.nhctrk.maxele.png')
+    plt.close(f)
+
+
     ens = "nhctrk", "higherSpeed", "lowerSpeed","shiftLeft","shiftRight "
     ens_col = "k", "r","b","c","m"
-    
     
     fcst = dict()
     counter = 0
