@@ -270,7 +270,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                # Plot model
                plt.plot(mod_dates, points_nhctrk['zeta'][:,n], '.', 'k',label='nhctrk')
                plt.plot(mod_dates, points_higherSpeed['zeta'][:,n], '.', 'r',label='higherSpeed')
-               plt.plot(mod_dates, points_lowerSpeed['zeta'][:,n], '.', 'm',label='higherSpeed')
+               plt.plot(mod_dates, points_lowerSpeed['zeta'][:,n], '.', 'm',label='lowerSpeed')
                plt.plot(mod_dates, points_shiftRight['zeta'][:,n], '.', 'b',label='shiftRight')
                plt.plot(mod_dates, points_shiftLeft['zeta'][:,n], '.', 'b',label='shiftLeft')
                    
