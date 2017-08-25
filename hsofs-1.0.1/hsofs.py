@@ -111,9 +111,9 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     counter = 0
     for member in ens:
         print '[info]: working on ' + member
-        trackFile  = 'inputPath' + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.surfaceforcing' 
-        maxeleFile = 'inputPath' + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.fields.maxele.nc'
-        pointsFile = 'inputPath' + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.points.waterlevel.nc'
+        trackFile  = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.surfaceforcing' 
+        maxeleFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.fields.maxele.nc'
+        pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + member + '.points.waterlevel.nc'
         
         #fcst['ens'][counter] = member
         fcst['track'][counter]  = atcf.readTrack(trackFile)
