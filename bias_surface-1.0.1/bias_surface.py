@@ -18,7 +18,7 @@ def run_bias_surface (argv):
     
     parser = argparse.ArgumentParser()
     parser.add_argument('-o','--outputFile',  required=True)
-    parser.add_argument('-a','--inputFile',   required=True)
+    parser.add_argument('-i','--inputFile',   required=True)
     parser.add_argument('-t','--toolkitPath', required=True)
     parser.add_argument('-g','--gridFile',    required=True)
     parser.add_argument('-m','--mapFile',     required=True)
