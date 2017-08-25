@@ -100,12 +100,40 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     from csdlpy import plotter
     from csdlpy import atcf
     from csdlpy.obs import coops
+
+    gridFile = 'fort.14'
+    trkFile = 'trk.dat'
+    advFile = 'adv.dat'
+
+    transfer.download (params['gridPath'], gridFile)
+    transfer.download (params['bestTrackURL'], trkFile)
+    transfer.download (params['advTrackURL'],  advFile)    
+
+    grid = adcirc.readGrid (gridFile)
+    trk = atcf.readTrack(trkFile)
+    adv = atcf.readTrack(advFile)
+
+    # MaxPS
+    maxPSfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.fields.maxPS.nc'
+    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
+
+    # Plot maxeles maxPS
+    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
     
+    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
+    plt.plot(adv['lon'], adv['lat'],'o--r',markersize=1,zorder=11)    
+        
+    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.maxPS'
+    plt.text (params['lonlim'][0]+0.03, \
+              params['latlim'][0]+0.03, \
+                  title )    
+    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.maxPS.maxele.png')
+    plt.close(f)
+   
     ens = "nhctrk", "higherSpeed", "lowerSpeed","shiftLeft","shiftRight "
     ens_col = "k", "r","b","c","m"
     
-    maxPSfile = 'inputPath' + '/hsofs.' + stormID + '.' + inputCycle + '.fields.maxPS.nc'
-    maxPS = estofs.getFieldsWaterlevel (maxPSfile, 'zeta_max')
     
     fcst = dict()
     counter = 0
@@ -121,35 +149,11 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
         fcst['points'][counter] = estofs.getPointsWaterlevel (pointsFile )            
         counter += 1
     
-    gridFile = 'fort.14'
-    trkFile = 'trk.dat'
-    advFile = 'adv.dat'
-
-    transfer.download (params['gridPath'], gridFile)
-    transfer.download (params['bestTrackURL'], trkFile)
-    transfer.download (params['advTrackURL'],  advFile)    
-
-    grid = adcirc.readGrid (gridFile)
-    trk = atcf.readTrack(trkFile)
-    adv = atcf.readTrack(advFile)
     
     cwl = fcst['points'][0] # nhctrk stations
     
     mod_dates = cwl['time'] 
     #          
-    # Plot maxeles maxPS
-    f = plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-    plotter.addSurface (grid, maxPS['value'],clim=params['clim'])
-    
-    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=1,zorder=10)    
-    plt.plot(adv['lon'], adv['lat'],'o--r',markersize=1,zorder=11)    
-        
-    title = 'HSOFS experimental ' + stormID + '.' + inputCycle + '.maxPS'
-    plt.text (params['lonlim'][0]+0.03, \
-              params['latlim'][0]+0.03, \
-                  title )    
-    plotter.save(title, outputPath + '/' + stormID + '.' + inputCycle + '.maxPS.maxele.png')
-    plt.close(f)
     #
 
     #          
@@ -238,4 +242,3 @@ if __name__ == "__main__":
     run_hsofs (sys.argv[1:])
 
     
-
