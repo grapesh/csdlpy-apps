@@ -266,7 +266,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                obs_vals = copy.deepcopy(mod_vals) #in case there is no obs
                obs_dates = copy.deepcopy(mod_dates) # in case if there is no obs
                
-               stID =  cwl['stations'][1].split()[0]
+               stID =  cwl['stations'][n].split()[0]
                coops_id = stID #[2]
                print coops_id
                obs_coops = coops.getData ( coops_id, daterange)
@@ -287,7 +287,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
                    
                plt.ylim([-1.5,params['clim'][1]])
                stationName = coops.getStationInfo (stID)
-               plt.title(stationName)
+               plt.title(stationName['name'] + ',' + stationName['state'])
                plt.xlim([daterange[0],mod_dates[-1]])
                plt.grid()
                plt.xlabel('DATE UTC')
