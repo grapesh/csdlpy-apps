@@ -88,9 +88,7 @@ def event_maxele (params, outputPath, toolkitPath):
     maxeleFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.fields.cwl.maxele.nc'
-    
-    #maxeleFile = "C:\Users\sergey.vinogradov\Python\maxele.63.nc"
-                          
+                         
     maxele = estofs.getFieldsWaterlevel (maxeleFile, 'zeta_max')    
     
     gridFile = 'fort.14'
@@ -120,9 +118,6 @@ def event_maxele (params, outputPath, toolkitPath):
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.points.htp.nc'
                        
-#    cwlFile = "C:/Users/sergey.vinogradov/Downloads/estofs.atl.t12z.points.cwl.nc"
-#    htpFile = "C:/Users/sergey.vinogradov/Downloads/estofs.atl.t12z.points.cwl.nc"
-               
     cwl = estofs.getPointsWaterlevel (cwlFile)
     htp = estofs.getPointsWaterlevel (htpFile)
     mod_dates = cwl['time']
