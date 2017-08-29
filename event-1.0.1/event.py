@@ -106,7 +106,10 @@ def event_maxele (params, outputPath, toolkitPath):
     adv = atcf.readTrack(advFile)
     
     plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)   
-    plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    try:
+        plotter.addSurface (grid, maxele['value'],clim=params['clim'])
+    except:
+        print '[warn]: cannot plot surface'
     plt.plot(trk['lon'], trk['lat'],'o-k',markersize=2,zorder=10)    
     plt.plot(adv['lon'], adv['lat'],'o-r',markersize=2,zorder=11)    
     
