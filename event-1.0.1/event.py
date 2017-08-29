@@ -162,7 +162,7 @@ def event_maxele (params, outputPath, toolkitPath):
                   if keepSearch:
                       try:
                          int_id = int(ids)
-                         if len(str(ind_id)) == 7:
+                         if len(str(int_id)) == 7:
                              coops_id = str(int_id)               
                              keepSearch = False
                       except:
