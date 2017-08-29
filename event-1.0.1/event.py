@@ -154,8 +154,19 @@ def event_maxele (params, outputPath, toolkitPath):
                obs_vals = copy.deepcopy(mod_vals) #in case there is no obs
                obs_dates = copy.deepcopy(mod_dates) # in case if there is no obs
                
-               print cwl['stations'][n]
-               coops_id = cwl['stations'][n].split()[2]
+               maybe_ids = cwl['stations'][n].split()
+               # Find which one is coops_id
+               try:
+                  int_id = int(maybe_ids[0])
+               except:
+                  try:
+                     int_id = int(maybe_ids[1])
+                  except:
+                     try:
+                         int_id = int(maybe_ids[2])
+                     except:
+                         pass
+               coops_id = str(int_id)               
                print coops_id
                obs_coops = coops.getData ( coops_id, daterange)
                if len(obs_coops['values'])>0:
