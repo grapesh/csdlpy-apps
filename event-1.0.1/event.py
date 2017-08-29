@@ -159,12 +159,12 @@ def event_maxele (params, outputPath, toolkitPath):
                # Find which one is coops_id               
                for ids in maybe_ids:
                   try:
-                     int_id = int(ids)                     
+                     int_id = int(ids)
+                     if len(str(ind_id)) == 7:
+                         coops_id = str(int_id)               
                   except:
                      pass
-               if len(str(ind_id)) == 7:
-                  coops_id = str(int_id)               
-               
+                  
                print coops_id
                obs_coops = coops.getData ( coops_id, daterange)
                if len(obs_coops['values'])>0:
