@@ -122,15 +122,17 @@ def event_maxele (params, outputPath, toolkitPath):
     htp = estofs.getPointsWaterlevel (htpFile)
     mod_dates = cwl['time']
     htp_dates = htp['time']
-
+    
     for n in range(len(cwl['lon'])):
+        print str(cwl['lon'][n]) + ',' + str(cwl['lat'][n])
+           
         if params['xlim'][0] <= cwl['lon'][n] and \
            cwl['lon'][n] <= params['xlim'][1] and \
            params['ylim'][0] <= cwl['lat'][n] and \
            cwl['lat'][n] <= params['ylim'][1]:
                plt.plot(cwl['lon'][n], cwl['lat'][n],'wo', \
                         markeredgecolor='k', zorder=15)
-    title = 'ESTOFS-ATL (HSOFS+GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
+    title = 'ESTOFS (GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
     plt.text (params['lonlim'][0]+0.02, \
               params['latlim'][0]+0.02, \
               title )    
