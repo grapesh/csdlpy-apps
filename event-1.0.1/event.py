@@ -138,7 +138,7 @@ def event_maxele (params, outputPath, toolkitPath):
     plotter.save(title, outputPath + '/maxele.png')        
 
     utcnow = dt.utcnow()
-    daterange = (utcnow-td(days=1), utcnow)
+    daterange = (utcnow-td(days=2), utcnow)
         
     figureCounter = 0
     for n in range(len(cwl['lon'])):
@@ -154,16 +154,16 @@ def event_maxele (params, outputPath, toolkitPath):
                obs_vals = copy.deepcopy(mod_vals) #in case there is no obs
                obs_dates = copy.deepcopy(mod_dates) # in case if there is no obs
                
-               maybe_ids = cwl['stations'][n].split()
-               print maybe_ids
-               # Find which one is coops_id
                coops_id = ''               
+               maybe_ids = cwl['stations'][n].split()               
+               # Find which one is coops_id               
                for ids in maybe_ids:
                   try:
                      int_id = int(ids)                     
                   except:
                      pass
-               coops_id = str(int_id)               
+               if len(str(ind_id)) == 7:
+                  coops_id = str(int_id)               
                
                print coops_id
                obs_coops = coops.getData ( coops_id, daterange)
