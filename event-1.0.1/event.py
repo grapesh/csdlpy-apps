@@ -123,8 +123,7 @@ def event_maxele (params, outputPath, toolkitPath):
     mod_dates = cwl['time']
     htp_dates = htp['time']
     
-    for n in range(len(cwl['lon'])):
-        print str(cwl['lon'][n]) + ',' + str(cwl['lat'][n])
+    for n in range(len(cwl['lon'])):        
            
         if params['xlim'][0] <= cwl['lon'][n] and \
            cwl['lon'][n] <= params['xlim'][1] and \
@@ -155,6 +154,7 @@ def event_maxele (params, outputPath, toolkitPath):
                obs_vals = copy.deepcopy(mod_vals) #in case there is no obs
                obs_dates = copy.deepcopy(mod_dates) # in case if there is no obs
                
+               print cwl['stations'][n]
                coops_id = cwl['stations'][n].split()[2]
                print coops_id
                obs_coops = coops.getData ( coops_id, daterange)
