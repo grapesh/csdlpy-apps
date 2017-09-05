@@ -180,7 +180,7 @@ def event_maxele (params, outputPath, toolkitPath):
                                               mod_dates, mod_vals, \
                                               figFile=outputPath + '/ts-' + \
                                               str(figureCounter).zfill(3) + '.png', \
-                                              stationName=cwl['stations'][n], \
+                                              stationName=latest['yyyymmdd']+'.t' +latest['tHHz']+'z '+ cwl['stations'][n], \
                                               htp_dates=htp_dates, htp_vals=htp_vals, \
                                               daterange = daterange, \
                                               ylim = (-1.5,params['clim'][1]))
