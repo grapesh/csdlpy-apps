@@ -18,11 +18,13 @@ def run_event (argv):
     outputPath  = ''
     toolkitPath = ''
     cfgFile     = ''
+    cycle       = ''  
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-o','--outputPath',  required=False)
     parser.add_argument('-t','--toolkitPath', required=True)
     parser.add_argument('-c','--cfgFile',     required=True)
+    parser.add_argument('-f','--fctCycle',    required=False)
     args = parser.parse_args()
     if args.outputPath:
         outputPath = args.outputPath
@@ -30,14 +32,17 @@ def run_event (argv):
         toolkitPath = args.toolkitPath
     if args.cfgFile:
         cfgFile     = args.cfgFile
+    if args.fctCycle:
+        fctCycle    = args.fctCycle
         
     print 'event.py configured with :'
     print 'outputPath  =', outputPath
     print 'toolkitPath =', toolkitPath
     print 'cfgFile     =', cfgFile
+    print 'fctCycle    =', fctCycle
     
     params = read_event_cfg (cfgFile)
-    event_maxele (params, outputPath, toolkitPath)
+    event_maxele (params, outputPath, toolkitPath, fctCycle)
     
 #==============================================================================
 #Henry,                                         # Event Name
@@ -73,7 +78,7 @@ def read_event_cfg (cfgFile):
     return params
 
 #==============================================================================
-def event_maxele (params, outputPath, toolkitPath):
+def event_maxele (params, outputPath, toolkitPath, fctCycle):
 
     sys.path.insert(0, toolkitPath )
     from csdlpy import estofs
@@ -82,9 +87,16 @@ def event_maxele (params, outputPath, toolkitPath):
     from csdlpy import plotter
     from csdlpy import atcf
     from csdlpy.obs import coops
+    if fctCycle == '':  
+        latest = estofs.latestForecast ()
+    else:
+        cycle = dict()
+        cycle['yyyymmdd'] = yyyymmddhh[0:8]
+        cycle['tHHz']     = yyyymmddhh[8:10]
+        latest = estofs.latestForecast (cycle)
     
-    latest = estofs.latestForecast ()
-    
+    print '[info]: requesting ', latest 
+      
     maxeleFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.fields.cwl.maxele.nc'
