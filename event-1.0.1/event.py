@@ -7,6 +7,7 @@ import argparse
 import matplotlib
 matplotlib.use('Agg',warn=False)
 import matplotlib.pyplot as plt
+import datetime
 from datetime import datetime as dt
 from datetime import timedelta as td
 import numpy as np
@@ -90,9 +91,8 @@ def event_maxele (params, outputPath, toolkitPath, fctCycle):
     if fctCycle == '':  
         latest = estofs.latestForecast ()
     else:
-        cycle = dict()
-        cycle['yyyymmdd'] = yyyymmddhh[0:8]
-        cycle['tHHz']     = yyyymmddhh[8:10]
+        cycle = datetime.datetime(int(fctCycle[0:4]), int(fctCycle[4:6]), \
+                      int(fctCycle[6:8]), int(fctCycle[8:10]))
         latest = estofs.latestForecast (cycle)
     
     print '[info]: requesting ', latest 
