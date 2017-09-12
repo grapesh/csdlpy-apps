@@ -96,13 +96,18 @@ def event_maxele (params, outputPath, toolkitPath, fctCycle):
         latest = estofs.latestForecast (cycle)
     
     print '[info]: requesting ', latest 
-      
+    
     maxeleFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.fields.cwl.maxele.nc'
-                         
-    maxele = estofs.getFieldsWaterlevel (maxeleFile, 'zeta_max')    
-    
+    if os.path.exists (maxeleFile):
+        maxele = estofs.getFieldsWaterlevel (maxeleFile, 'zeta_max')    
+    else:
+        hourlyFields = params['prodPath'] + params['domain'] + '.' + \
+                       latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
+                       latest['tHHz'] + '.fields.cwl.nc'
+        maxele = adcirc.computeMaxele(hourlyFields)
+      
     gridFile = 'fort.14'
     trkFile = 'trk.dat'
     advFile = 'adv.dat'
