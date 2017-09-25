@@ -34,16 +34,16 @@ def run_event (argv):
     if args.cfgFile:
         cfgFile     = args.cfgFile
     if args.fctCycle:
-        fctCycle    = args.fctCycle
+        cycle    = args.fctCycle
         
     print 'event.py configured with :'
     print 'outputPath  =', outputPath
     print 'toolkitPath =', toolkitPath
     print 'cfgFile     =', cfgFile
-    print 'fctCycle    =', fctCycle
+    print 'fctCycle    =', cycle
     
     params = read_event_cfg (cfgFile)
-    event_maxele (params, outputPath, toolkitPath, fctCycle)
+    event_maxele (params, outputPath, toolkitPath, cycle)
     
 #==============================================================================
 #Henry,                                         # Event Name
