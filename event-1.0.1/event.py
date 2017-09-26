@@ -54,8 +54,8 @@ def run_event (argv):
     print '[info]: requesting ', latest
 
     params   = read_event_cfg (cfgFile)
-    stations = event_timeseries (params, outputPath, latest)
-    event_maxele      (params, outputPath, stations, latest)
+    #stations = event_timeseries (params, outputPath, latest)
+    #event_maxele      (params, outputPath, stations, latest)
     event_inundation  (params, outputPath, latest)
 
 #==============================================================================
@@ -222,7 +222,7 @@ def event_inundation (params, outputPath, latest):
     grid = csdlpy.adcirc.readGrid (gridFile)
 
     csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-    field = 3.28*(maxele['value'] - grid['depth']) # AGL in FEET
+    field = 3.28*(maxele['value'] + grid['depth']) # AGL in FEET
     field[np.where(field<=0.)]=np.nan
     try:
         csdlpy.plotter.addSurface (grid, field, clim=[0.,8.0])
