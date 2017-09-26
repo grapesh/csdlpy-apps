@@ -54,8 +54,8 @@ def run_event (argv):
     print '[info]: requesting ', latest
 
     params   = read_event_cfg (cfgFile)
-    #stations = event_timeseries (params, outputPath, latest)
-    #event_maxele      (params, outputPath, stations, latest)
+    stations = event_timeseries (params, outputPath, latest)
+    event_maxele      (params, outputPath, stations, latest)
     event_inundation  (params, outputPath, latest)
 
 #==============================================================================
@@ -216,16 +216,10 @@ def event_inundation (params, outputPath, latest):
         maxele = csdlpy.adcirc.computeMaxele(hourlyFields)
 
     gridFile = 'fort.14'
-    trkFile = 'trk.dat'
-    advFile = 'adv.dat'
 
     csdlpy.transfer.download (params['gridPath'], gridFile)
-    csdlpy.transfer.download (params['bestTrackURL'], trkFile)
-    csdlpy.transfer.download (params['advTrackURL'],  advFile)
 
     grid = csdlpy.adcirc.readGrid (gridFile)
-    trk  = csdlpy.atcf.readTrack(trkFile)
-    adv =  csdlpy.atcf.readTrack(advFile)
 
     csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
     field = 3.28*(maxele['value'] - grid['depth']) # AGL in FEET
@@ -234,8 +228,6 @@ def event_inundation (params, outputPath, latest):
         csdlpy.plotter.addSurface (grid, field, clim=[0.,8.0])
     except:
         print '[warn]: cannot plot surface'
-    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=2,zorder=10)
-    plt.plot(adv['lon'], adv['lat'],'o-r',markersize=2,zorder=11)
 
     title = 'ESTOFS (GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
     plt.text (params['lonlim'][0]+0.02, \
