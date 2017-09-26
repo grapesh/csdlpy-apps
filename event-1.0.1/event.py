@@ -226,11 +226,9 @@ def event_inundation (params, outputPath, latest):
     
     field[np.where(np.isnan(maxele['value']))]=np.nan    
     field[np.where(grid['depth']>0.)]=np.nan
-    
-    field = 3.28*field # in feet AGL
-    
+           
     try:
-        csdlpy.plotter.addSurface (grid, field, clim=[0.,6.0], zorder = 100)
+        csdlpy.plotter.addSurface (grid, field, clim=[0.,1.0], zorder = 100)
     except:
         print '[warn]: cannot plot surface'
 
