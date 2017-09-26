@@ -222,13 +222,10 @@ def event_inundation (params, outputPath, latest):
     grid = csdlpy.adcirc.readGrid (gridFile)
 
     csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
-    field = maxele['value'] + grid['depth']
-    
-    field[np.where(np.isnan(maxele['value']))]=np.nan    
-    field[np.where(grid['depth']>0.)]=np.nan
-    #mask = np.any(np.where(np.isnan(field)))
-    field = np.ma.masked_where(np.isnan(field), field, copy=False)
-    
+   
+    field = np.ma.masked_where(np.isnan(maxele['value']), maxele['value'] + grid['depth'])
+    field = np.ma.masked_where(grid['depth']>0.), field)
+        
     try:
         csdlpy.plotter.addSurface (grid, 3.28*field, clim=[0.,6.0], zorder = 100)
     except:
