@@ -56,7 +56,7 @@ def run_event (argv):
     params   = read_event_cfg (cfgFile)
     #stations = event_timeseries (params, outputPath, latest)
     #event_maxele      (params, outputPath, stations, latest)
-    event_inundation  (params, outputPath, stations, latest)
+    event_inundation  (params, outputPath, latest)
 
 #==============================================================================
 def read_event_cfg (cfgFile):
@@ -200,7 +200,7 @@ def event_maxele (params, outputPath, stations, latest):
     csdlpy.plotter.save(title, outputPath + '/maxele.png')
 
 #==============================================================================
-def event_inundation (params, outputPath, stations, latest):
+def event_inundation (params, outputPath, latest):
 
     import csdlpy
 
