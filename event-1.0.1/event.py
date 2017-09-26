@@ -225,6 +225,7 @@ def event_inundation (params, outputPath, latest):
     field = 3.28*(maxele['value'] + grid['depth']) # AGL in FEET
     field[np.where(field<=0.)]=np.nan
     field[np.where(grid['depth']>0.)]=np.nan
+    field[np.where(np.isnan(maxele['value']))]=np.nan
     
     try:
         csdlpy.plotter.addSurface (grid, field, clim=[0.,6.0], zorder = 100)
