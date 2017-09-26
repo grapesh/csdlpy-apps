@@ -229,6 +229,7 @@ def event_inundation (params, outputPath, stations, latest):
 
     csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
     field = 3.28*(maxele['value'] - grid['depth']) # AGL in FEET
+    field[np.where(field<=0.)]=np.nan
     try:
         csdlpy.plotter.addSurface (grid, field, clim=[0.,8.0])
     except:
