@@ -223,7 +223,7 @@ def event_inundation (params, outputPath, latest):
 
     csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
     field = maxele['value'] + grid['depth']
-    zm    = np.ma.masked_where(  (np.isnan(maxele['value'])) & (grid['depth']>0.), (field) )
+    zm    = np.ma.masked_where(  (np.isnan(maxele['value'])) & (grid['depth']>0.) & (maxele['value']<=0), (field) )
     field[np.where(np.ma.getmask(zm)==True)] = np.nan
     
     try:
