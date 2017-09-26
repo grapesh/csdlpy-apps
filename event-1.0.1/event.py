@@ -224,7 +224,7 @@ def event_inundation (params, outputPath, latest):
     csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
    
     field = np.ma.masked_where(np.isnan(maxele['value']), maxele['value'] + grid['depth'])
-    field = np.ma.masked_where(grid['depth']>0.), field)
+    field = np.ma.masked_where(grid['depth']>0., field)
         
     try:
         csdlpy.plotter.addSurface (grid, 3.28*field, clim=[0.,6.0], zorder = 100)
