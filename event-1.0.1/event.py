@@ -45,7 +45,7 @@ def run_event (argv):
     sys.path.insert(0, toolkitPath )
     import csdlpy
 
-   if cycle == '':
+    if cycle == '':
         latest = csdlpy.estofs.latestForecast ()
     else:
         retroCycle = datetime.datetime(int(cycle[0:4]), int(cycle[4:6]), \
@@ -56,6 +56,7 @@ def run_event (argv):
     params   = read_event_cfg (cfgFile)
     stations = event_timeseries (params, outputPath, latest)
     event_maxele      (params, outputPath, stations, latest)
+    event_inundation  (params, outputPath, stations, latest)
 
 #==============================================================================
 def read_event_cfg (cfgFile):
@@ -78,7 +79,6 @@ def read_event_cfg (cfgFile):
     params['ylim'] = float(line[2]), float(line[3])
     f.close()
     return params
-
 
 #==============================================================================
 def event_timeseries(params, outputPath, latest):
@@ -198,6 +198,50 @@ def event_maxele (params, outputPath, stations, latest):
               params['latlim'][0]+0.02, \
               title )
     csdlpy.plotter.save(title, outputPath + '/maxele.png')
+
+#==============================================================================
+def event_inundation (params, outputPath, stations, latest):
+
+    import csdlpy
+
+    maxeleFile = params['prodPath'] + params['domain'] + '.' + \
+                       latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
+                       latest['tHHz'] + '.fields.cwl.maxele.nc'
+    if os.path.exists (maxeleFile):
+        maxele = csdlpy.estofs.getFieldsWaterlevel (maxeleFile, 'zeta_max')
+    else:
+        hourlyFields = params['prodPath'] + params['domain'] + '.' + \
+                       latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
+                       latest['tHHz'] + '.fields.cwl.nc'
+        maxele = csdlpy.adcirc.computeMaxele(hourlyFields)
+
+    gridFile = 'fort.14'
+    trkFile = 'trk.dat'
+    advFile = 'adv.dat'
+
+    csdlpy.transfer.download (params['gridPath'], gridFile)
+    csdlpy.transfer.download (params['bestTrackURL'], trkFile)
+    csdlpy.transfer.download (params['advTrackURL'],  advFile)
+
+    grid = csdlpy.adcirc.readGrid (gridFile)
+    trk  = csdlpy.atcf.readTrack(trkFile)
+    adv =  csdlpy.atcf.readTrack(advFile)
+
+    csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
+    field = 3.28*(maxele['value'] - grid['depth']) # AGL in FEET
+    try:
+        csdlpy.plotter.addSurface (grid, field, clim=[0.,8.0])
+    except:
+        print '[warn]: cannot plot surface'
+    plt.plot(trk['lon'], trk['lat'],'o-k',markersize=2,zorder=10)
+    plt.plot(adv['lon'], adv['lat'],'o-r',markersize=2,zorder=11)
+
+    title = 'ESTOFS (GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
+    plt.text (params['lonlim'][0]+0.02, \
+              params['latlim'][0]+0.02, \
+              title )
+    csdlpy.plotter.save(title, outputPath + '/inundation_agl_ft.png')
+
 
 #==============================================================================
 if __name__ == "__main__":
