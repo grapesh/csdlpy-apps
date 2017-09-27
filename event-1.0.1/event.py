@@ -91,7 +91,11 @@ def event_timeseries(params, outputPath, latest):
     htpFile = params['prodPath'] + params['domain'] + '.' + \
                        latest['yyyymmdd'] + '/' + params['prefix'] + '.' + \
                        latest['tHHz'] + '.points.htp.nc'
-
+    
+    if not os.path.exists(cwlFile):
+        print '[error]: File does not exist:' + cwlFile
+        raise 
+    
     cwl = csdlpy.estofs.getPointsWaterlevel (cwlFile)
     htp = csdlpy.estofs.getPointsWaterlevel (htpFile)
     mod_dates = cwl['time']
