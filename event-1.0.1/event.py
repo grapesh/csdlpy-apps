@@ -232,7 +232,7 @@ def event_inundation (params, outputPath, latest):
     #field[np.where(np.ma.getmask(zm)==True)] = np.nan
     mask  = np.logical_or( (grid['depth']>=0.),(maxele['value']<=0.) )
     mask  = np.logical_or( (mask), (np.isnan(maxele['value'])) )        
-    mask  = np.logical_or( (mask), (np.where(np.ma.getmask(maxele)==True)) )        
+    mask  = np.logical_or( (mask), (np.ma.getmask(maxele)==True) )        
     field = np.ma.masked_where( mask , (field))
     
     try:
