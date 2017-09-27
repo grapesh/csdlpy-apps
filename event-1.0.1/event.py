@@ -154,7 +154,7 @@ def event_timeseries(params, outputPath, latest):
     return {'lon' : cwl['lon'], 'lat' : cwl['lat']}
 
 #==============================================================================
-def event_maxele (params, outputPath, stations, latest):
+def event_maxele (params, outputPath, stations=None, latest):
 
     import csdlpy
 
@@ -189,14 +189,15 @@ def event_maxele (params, outputPath, stations, latest):
     plt.plot(trk['lon'], trk['lat'],'o-k',markersize=2,zorder=10)
     plt.plot(adv['lon'], adv['lat'],'o-r',markersize=2,zorder=11)
 
-
-    for n in range(len(stations['lon'])):
-        if params['xlim'][0] <= stations['lon'][n] and \
-           stations['lon'][n] <= params['xlim'][1] and \
-           params['ylim'][0] <= stations['lat'][n] and \
-           stations['lat'][n] <= params['ylim'][1]:
-               plt.plot(stations['lon'][n], stations['lat'][n],'wo', \
-                        markeredgecolor='k', zorder=15)
+    if stations is not None:
+        for n in range(len(stations['lon'])):
+            if params['xlim'][0] <= stations['lon'][n] and \
+               stations['lon'][n] <= params['xlim'][1] and \
+               params['ylim'][0] <= stations['lat'][n] and \
+               stations['lat'][n] <= params['ylim'][1]:
+                   plt.plot(stations['lon'][n], stations['lat'][n],'wo', \
+                            markeredgecolor='k', zorder=15)
+                
     title = 'ESTOFS (GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
     plt.text (params['lonlim'][0]+0.02, \
               params['latlim'][0]+0.02, \
