@@ -244,7 +244,7 @@ def event_inundation (params, outputPath, latest):
     title = 'AGL (ft) ESTOFS (GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
     plt.text (params['lonlim'][0]+0.02, \
               params['latlim'][0]+0.02, \
-              title. zorder = 110 )
+              title, zorder = 110 )
     csdlpy.plotter.save(title, outputPath + '/inundation_agl_ft.png')
 
 
