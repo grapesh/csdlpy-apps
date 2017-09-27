@@ -241,10 +241,10 @@ def event_inundation (params, outputPath, latest):
     except:
         print '[warn]: cannot plot surface'
 
-    title = 'ESTOFS (GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
+    title = 'AGL (ft) ESTOFS (GFS) ' + latest['yyyymmdd'] + '.' + latest['tHHz']
     plt.text (params['lonlim'][0]+0.02, \
               params['latlim'][0]+0.02, \
-              title )
+              title. zorder = 110 )
     csdlpy.plotter.save(title, outputPath + '/inundation_agl_ft.png')
 
 
