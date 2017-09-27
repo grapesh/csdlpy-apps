@@ -230,10 +230,10 @@ def event_inundation (params, outputPath, latest):
     #zm    = np.ma.masked_where(  (np.isnan(maxele['value'])) & (grid['depth']>=0.) & (maxele['value']<=0), (field) )
     #zm    = np.ma.masked_where(  grid['depth']>=0., (field))
     #field[np.where(np.ma.getmask(zm)==True)] = np.nan
-    field = np.ma.masked_where(grid['depth']>=0., (field))
+    #field = np.ma.masked_where(grid['depth']>=0., (field))
     
     try:
-        csdlpy.plotter.addSurface (grid, 3.28*field, clim=[0.,6.0], zorder = 100)
+        csdlpy.plotter.addSurface (grid, 1.00field, clim=[0.,1.0], zorder = 100)
     except:
         print '[warn]: cannot plot surface'
 
