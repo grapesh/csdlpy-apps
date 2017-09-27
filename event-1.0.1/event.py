@@ -235,6 +235,7 @@ def event_inundation (params, outputPath, latest):
     
     field [np.where(np.ma.getmask(field)==True)] = np.nan
     field [(field == 0.)] = np.nan
+    field [ field == 0. ] = np.nan    
     #field = np.ma.masked_where( np.isnan(field) , (field))
     field [mask] = np.nan
     
