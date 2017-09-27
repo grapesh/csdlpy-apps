@@ -54,8 +54,8 @@ def run_event (argv):
     print '[info]: requesting ', latest
 
     params   = read_event_cfg (cfgFile)
-    #stations = event_timeseries (params, outputPath, latest)
-    #event_maxele      (params, outputPath, stations, latest)
+    stations = event_timeseries (params, outputPath, latest)
+    event_maxele      (params, outputPath, stations, latest)
     event_inundation  (params, outputPath, latest)
 
 #==============================================================================
@@ -227,13 +227,12 @@ def event_inundation (params, outputPath, latest):
 
     csdlpy.plotter.plotMap    (params['lonlim'], params['latlim'], fig_w=10.)
     field = maxele['value'] + grid['depth']
-    #zm    = np.ma.masked_where(  (np.isnan(maxele['value'])) & (grid['depth']>=0.) & (maxele['value']<=0), (field) )
-    #zm    = np.ma.masked_where(  grid['depth']>=0., (field))
-    #field[np.where(np.ma.getmask(zm)==True)] = np.nan
+
     mask  = np.logical_or( (grid['depth']>=0.),(maxele['value']<=0.) )
     mask  = np.logical_or( (mask), (np.isnan(maxele['value'])) )        
-    mask  = np.logical_or( (mask), (np.ma.getmask(maxele)==True) )        
+    mask  = np.logical_or( (mask), (np.ma.getmask(maxele)==True) )            
     field = np.ma.masked_where( mask , (field))
+    
     field [np.where(np.ma.getmask(field)==True)] = np.nan
     field [(field == 0.)] = np.nan
     
