@@ -48,9 +48,12 @@ def run_event (argv):
     if cycle == '':
         latest = csdlpy.estofs.latestForecast ()
     else:
-        retroCycle = datetime.datetime(int(cycle[0:4]), int(cycle[4:6]), \
-                                       int(cycle[6:8]), int(cycle[8:10]))
-        latest = csdlpy.estofs.latestForecast (retroCycle)
+        #retroCycle = datetime.datetime(int(cycle[0:4]), int(cycle[4:6]), \
+        #                               int(cycle[6:8]), int(cycle[8:10]))
+        #latest = csdlpy.estofs.latestForecast (retroCycle)
+        latest = dict()
+        latest['yyyymmdd'] = cycle[0:8]
+        latest['tHHz']     = 't' + cycle[8:10] + 'z'
     print '[info]: requesting ', latest
 
     params   = read_event_cfg (cfgFile)
