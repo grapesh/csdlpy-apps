@@ -55,7 +55,7 @@ def run_event (argv):
 
     params   = read_event_cfg (cfgFile)
     stations = event_timeseries (params, outputPath, latest)
-    event_maxele      (params, outputPath, stations, latest)
+    event_maxele      (params, outputPath, latest, stations)
     event_inundation  (params, outputPath, latest)
 
 #==============================================================================
@@ -154,7 +154,7 @@ def event_timeseries(params, outputPath, latest):
     return {'lon' : cwl['lon'], 'lat' : cwl['lat']}
 
 #==============================================================================
-def event_maxele (params, outputPath, stations=None, latest):
+def event_maxele (params, outputPath, latest, stations=None):
 
     import csdlpy
 
