@@ -230,7 +230,10 @@ def event_inundation (params, outputPath, latest):
     #zm    = np.ma.masked_where(  (np.isnan(maxele['value'])) & (grid['depth']>=0.) & (maxele['value']<=0), (field) )
     #zm    = np.ma.masked_where(  grid['depth']>=0., (field))
     #field[np.where(np.ma.getmask(zm)==True)] = np.nan
-    field = np.ma.masked_where( np.logical_or((grid['depth']>=0.),(maxele['value']<=0.)) , (field))
+    mask  = np.logical_or( (grid['depth']>=0.),(maxele['value']<=0.) )
+    mask  = np.logical_or( (mask), (np.isnan(maxele['value'])) )        
+    mask  = np.logical_or( (mask), (np.where(np.ma.getmask(maxele)==True)) )        
+    field = np.ma.masked_where( mask , (field))
     
     try:
         csdlpy.plotter.addSurface (grid, 1.00*field, clim=[0.,1.0], zorder = 100)
