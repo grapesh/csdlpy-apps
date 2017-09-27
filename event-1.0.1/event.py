@@ -54,8 +54,8 @@ def run_event (argv):
     print '[info]: requesting ', latest
 
     params   = read_event_cfg (cfgFile)
-    stations = event_timeseries (params, outputPath, latest)
-    event_maxele      (params, outputPath, stations, latest)
+    #stations = event_timeseries (params, outputPath, latest)
+    #event_maxele      (params, outputPath, stations, latest)
     event_inundation  (params, outputPath, latest)
 
 #==============================================================================
