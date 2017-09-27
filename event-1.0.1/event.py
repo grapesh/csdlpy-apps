@@ -237,7 +237,7 @@ def event_inundation (params, outputPath, latest):
     field [(field == 0.)] = np.nan
     
     try:
-        csdlpy.plotter.addSurface (grid, 1.00*field, clim=[0.,1.0], zorder = 100)
+        csdlpy.plotter.addSurface (grid, 3.28*field, clim=[0.,6.0], zorder = 100)
     except:
         print '[warn]: cannot plot surface'
 
