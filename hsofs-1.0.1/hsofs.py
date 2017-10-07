@@ -134,7 +134,7 @@ def hsofs_plots (params, inputPath, stormID, inputCycle, outputPath, toolkitPath
     plt.close(f)
     
     # 2
-    ens = 'lowerSpeed'
+    ens = 'slowerSpeed'
     ncfile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.' + ens + '.fields.maxele.nc'
     trkFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.surfaceforcing' 
     pointsFile = inputPath + '/hsofs.' + stormID + '.' + inputCycle + '.'+ ens + '.points.waterlevel.nc'
