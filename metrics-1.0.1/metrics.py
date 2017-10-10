@@ -191,8 +191,8 @@ def compute_metrics(params, toolkitPath, latest):
 
 #Copy 
     for s in stats:
-        shutil.copy('metrics-'+ YYYYMMDD +'-'+ s +'.csv', 'metrics-' + params['domain']+'-'+s+'.csv')
-        shutil.copy('ts-'+ YYYYMMDD +'-'+ s +'.png', 'ts-'+ params['domain']+'-'+s+'.png')
+        shutil.copy('metrics-'+ YYYYMMDD +'-'+ s +'.csv', 'metrics-today-' + params['domain']+'-'+s+'.csv')
+        shutil.copy('ts-'+ YYYYMMDD +'-'+ s +'.png', 'ts-today-'+ params['domain']+'-'+s+'.png')
     
 #==============================================================================
 if __name__ == "__main__":
