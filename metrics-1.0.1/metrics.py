@@ -72,10 +72,10 @@ def run_metrics (argv):
     print '[info]: requesting ', latest
 
     params   = read_metrics_cfg (cfgFile)
-    compute_metrics(params, toolkitPath, outputPath, latest)
+    compute_metrics(params, toolkitPath, latest)
 
 #==============================================================================
-def compute_metrics(params, toolkitPath, outputPath, latest):
+def compute_metrics(params, toolkitPath, latest):
 
     sys.path.insert(0, toolkitPath )
     import csdlpy
@@ -109,7 +109,7 @@ def compute_metrics(params, toolkitPath, outputPath, latest):
     #Set output files
     fout = list()
     for s in stats:
-        fout.append(open(outputPath +'metrics-'+ YYYYMMDD +'-'+ s +'.csv','w',0))
+        fout.append(open('metrics-'+ YYYYMMDD +'-'+ s +'.csv','w',0))
         plt.figure(figsize=(10,4.5))
 
     # Collect figure handles
@@ -183,7 +183,7 @@ def compute_metrics(params, toolkitPath, outputPath, latest):
         plt.plot(fxLead, statavgs[:,n_st],c='k',linewidth=3.0)
         plt.xlabel('LEAD TIME, HOURS')
         plt.grid()
-        plt.savefig(outputPath + 'ts-' + YYYYMMDD + '-' + stats[n_st] + '.png')
+        plt.savefig('ts-' + YYYYMMDD + '-' + stats[n_st] + '.png')
 
     for f in fout:
         f.write('\n')
@@ -191,8 +191,8 @@ def compute_metrics(params, toolkitPath, outputPath, latest):
 
 #Copy 
     for s in stats:
-        shutil.copy(outputPath +'metrics-'+ YYYYMMDD +'-'+ s +'.csv', 'metrics-'+s+'.csv')
-        shutil.copy(outputPath +'ts-'+ YYYYMMDD +'-'+ s +'.png', 'ts-'+s+'.png')
+        shutil.copy('metrics-'+ YYYYMMDD +'-'+ s +'.csv', 'metrics-'+s+'.csv')
+        shutil.copy('ts-'+ YYYYMMDD +'-'+ s +'.png', 'ts-'+s+'.png')
     
 #==============================================================================
 if __name__ == "__main__":
