@@ -92,11 +92,14 @@ def compute_metrics(params, toolkitPath, latest):
         forecasts.append (csdlpy.estofs.getPointsWaterlevel (ncFile) )
 
     #Get all stations IDs from the first forecast
+    st_id_column = 2 # ESTOFS ATL
+    if 'pac' in params['domain']:
+        st_id_column = 0
     station_id  = []
     station_lon = []
     station_lat = []
     for n in range(len(forecasts[0]['stations'])):
-        station_id.append (forecasts[0]['stations'][n].split()[2])
+        station_id.append (forecasts[0]['stations'][n].split()[st_id_column])
         station_lon.append(forecasts[0]['lon'][n])
         station_lat.append(forecasts[0]['lat'][n])
 
