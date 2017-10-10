@@ -40,23 +40,15 @@ def read_metrics_cfg (cfgFile):
 #==============================================================================
 def run_metrics (argv):
 
-    outputPath  = ''
-    archivePath = ''
     toolkitPath = ''
     cfgFile     = ''
     cycle       = ''
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-o','--outputPath',  required=False)
-    parser.add_argument('-a','--archivePath', required=False)
     parser.add_argument('-t','--toolkitPath', required=True)
     parser.add_argument('-c','--cfgFile',     required=True)
     parser.add_argument('-f','--fctCycle',    required=False)
     args = parser.parse_args()
-    if args.outputPath:
-        outputPath = args.outputPath
-    if args.archivePath:
-        archivePath = args.archivePath
     if args.toolkitPath:
         toolkitPath = args.toolkitPath
     if args.cfgFile:
@@ -65,9 +57,6 @@ def run_metrics (argv):
         cycle    = args.fctCycle
 
     print 'event.py configured with :'
-    print 'outputPath  =', outputPath
-    print 'toolkitPath =', toolkitPath
-    print 'archivePath =', archivePath
     print 'cfgFile     =', cfgFile
     print 'fctCycle    =', cycle
 
