@@ -5,7 +5,7 @@ Created on Mon Oct  9 20:13:19 2017
 @author: svinogra
 """
 import argparse
-import sys
+import os,sys
 import glob
 from datetime import datetime as dt
 import numpy as np
@@ -83,7 +83,7 @@ def compute_metrics(params, toolkitPath, latest):
     stats = params['stats']
     units = params['units']
     YYYYMMDD = latest['yyyymmdd']
-    ncFiles  = glob.glob(params['modelPath'] + params['fileMask'])
+    ncFiles  = sorted(glob.glob(params['modelPath'] + params['fileMask'])) #, key=os.path.getmtime)
     
     datespan = [dt.strptime(YYYYMMDD,"%Y%m%d"), dt.strptime(YYYYMMDD,"%Y%m%d")]
 
